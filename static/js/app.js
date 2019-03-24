@@ -16,7 +16,8 @@ function buildMetadata(sample) {
     // Hint: Inside the loop, you will need to use d3 to append new
     // tags for each key-value in the metadata.
     Object.entries(sampleData).forEach(([key, value]) => {
-      metadata.append("h6").text(`${key}, ${value}`);
+      var row = sample_metadata.append("p");
+      row.text(`${key}: ${value}`);
     });
   });
 
@@ -51,7 +52,7 @@ function buildCharts(sample) {
       xaxis: { title: "OTU id" }
     };
 
-    Plotly.Plot("bubble", data, layout);
+    Plotly.newPlot("bubble", data, layout);
 
     // @TODO: Build a Pie Chart
     // HINT: You will need to use slice() to grab the top 10 sample_values,
@@ -71,7 +72,7 @@ function buildCharts(sample) {
       margin: {t: 0, l: 0}
     };
 
-    Plotly.Plot("pie", data, layout);
+    Plotly.newPlot("pie", data, layout);
 
   });
 };
