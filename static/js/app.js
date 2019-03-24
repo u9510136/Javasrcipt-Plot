@@ -3,9 +3,9 @@ function buildMetadata(sample) {
   // @TODO: Complete the following function that builds the metadata panel
   // Use `d3.json` to fetch the metadata for a sample
   var url = "/metadata/" + sample
-  d3.json(url).then(function (sample) {
-    console.log(sample);
-    
+  d3.json(url).then(function (sampleData) {
+    console.log(sampleData);
+
     // Use d3 to select the panel with id of `#sample-metadata`
     var metadata = d3.select("#sample-metadata");
 
@@ -15,8 +15,8 @@ function buildMetadata(sample) {
     // Use `Object.entries` to add each key and value pair to the panel
     // Hint: Inside the loop, you will need to use d3 to append new
     // tags for each key-value in the metadata.
-    Object.entries(sample).forEach(([key, value]) => {
-      var row = metadata.append("p");
+    Object.entries(sampleData).forEach(([key, value]) => {
+      var row = metadata.append("h5");
       row.text(`${key}: ${value}`);
     })
   })
@@ -47,7 +47,7 @@ function buildCharts(sample) {
     var data = [trace1];
 
     var layout = {
-      x_axis: {title: "OTU id"}
+      xaxis: { title: "OTU id" }
     };
 
     Plotly.newPLot("bubble", data, layout);
@@ -55,18 +55,22 @@ function buildCharts(sample) {
     // @TODO: Build a Pie Chart
     // HINT: You will need to use slice() to grab the top 10 sample_values,
     // otu_ids, and labels (10 each).
-    d3.json(url).then(function(data) {
-      var trace2 = {
-        values: data.sample_values.slice(0,10),
-        labels: data.otu_ids.slice(0,10),
-        hovertext: data.otu_labels.slice(0,10),
-        type: "pie"
-      };
-      
-      var data = [trace2];
-      
-      Plotly.newPlot("pie", data);
-    });
+
+    var trace2 = {
+      values: data.sample_values.slice(0, 10),
+      labels: data.otu_ids.slice(0, 10),
+      hovertext: data.otu_labels.slice(0, 10),
+      type: "pie"
+    };
+
+    var data = [trace2];
+
+    var layout = {
+      margin: {t: 0, l: 0}
+    };
+
+    Plotly.newPlot("pie", data, layout);
+
   });
 };
 
