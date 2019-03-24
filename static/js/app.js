@@ -28,7 +28,7 @@ function buildMetadata(sample) {
 function buildCharts(sample) {
 
   // @TODO: Use `d3.json` to fetch the sample data for the plots
-  var url = `/sample/${sample}`;
+  var url = `/samples/${sample}`;
   d3.json(url).then(function (data) {
     console.log(data);
 
