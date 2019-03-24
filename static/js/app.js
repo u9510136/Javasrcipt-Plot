@@ -33,14 +33,20 @@ function buildCharts(sample) {
     console.log(data);
 
     // @TODO: Build a Bubble Chart using the sample data
+    var x_val = data.otu_ids;
+    var y_val = data.sample_values;
+    var size = data.sample_values;
+    var colors = data.otu_ids;
+    var text_val = data.otu_labels;
+
     var trace1 = {
-      x: data.otu_ids,
-      y: data.sample_values,
-      text: data.otu_labels,
+      x: x_val,
+      y: y_val,
+      text: text_val,
       mode: "markers",
       marker: {
-        size: data.sample_values,
-        color: data.otu_ids
+        size: size,
+        color: colors
       }
     };
 
@@ -54,15 +60,21 @@ function buildCharts(sample) {
 
     Plotly.newPlot("bubble", data, layout);
   });
-  
-    // @TODO: Build a Pie Chart
-    // HINT: You will need to use slice() to grab the top 10 sample_values,
-    // otu_ids, and labels (10 each).
-    d3.json(url).then(function (data) {
+
+  // @TODO: Build a Pie Chart
+  // HINT: You will need to use slice() to grab the top 10 sample_values,
+  // otu_ids, and labels (10 each).
+  d3.json(url).then(function (data) {
+
+    var x_values = data.sample_values.slice(0, 10);
+    var y_labels = data.otu_ids.slice(0, 10);
+    var hover = data.otu_labels.slice(0, 10);
+
+
     var trace2 = {
-      values: data.sample_values.slice(0, 10),
-      labels: data.otu_ids.slice(0, 10),
-      hovertext: data.otu_labels.slice(0, 10),
+      values: x_values,
+      labels: y_labels,
+      hovertext: hover,
       hoverinfo: "hovertext",
       type: "pie"
     };
