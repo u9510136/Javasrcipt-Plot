@@ -29,7 +29,7 @@ function buildCharts(sample) {
   // @TODO: Use `d3.json` to fetch the sample data for the plots
   var url = `/sample/${sample}`;
   d3.json(url).then(function (data) {
-
+    console.log(data);
 
     // @TODO: Build a Bubble Chart using the sample data
     var trace1 = {
